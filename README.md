@@ -50,4 +50,17 @@ A: To deploy this application into production, we need to follow several steps a
 * Setup an CI/CD pipeline for automated development, testing and deployment into production environment.
 * We need to implement security measures such as encryption, access controls and network policies to protect sensitive information.
 
+#### 2. What other components would you want to add to make this production ready?
+A: Most importantly, I would add Logging and monitoring into this application to track the logs and performance of the application which is crucial in any production application, using tools such as ELK or grafana.
 
+#### 3. How can this application scale with a growing dataset.
+A: Data Partitioning can be implemented for this application for the growing dataset into smaller chunks to distribute the data across multiple database nodes. Also, we could implement load balancing mechanism to distribute evenly across multiple application instances which ensures optimal resource utilization.
+
+#### 4. How can PII be recovered later on?
+A: While masking the PII, we can store the original values (before masking) securely in a separate location, with restricted access controls, encrypted storage, which would allow us to recover the PII data whenever required.
+
+#### 5. What are the assumptions you made?
+A: Below assumptions were made while building this application:
+* It's assumed that the JSON data structure received from the SQS queue follows a predefined schema and does not vary significantly.
+* The database schema for the user_logins table was assumed to be stable and predefined but in a other scenario, schema changes may occur over time, requiring versioning and migrations.
+* The masking technique which was used (SHA-256 hashing) assumes that irreversible masking is sufficient for protecting PII. 
