@@ -21,14 +21,33 @@
 8. Finally, Run Python Script to retrevie the data from Postgres using command: python Select-table.py
 
 ### Key Pointers:
-1. How will you read messages from the queue?
+#### 1. How will you read messages from the queue?
+
 A: To read messages from the queue, I have used the boto3 library, which is the AWS SDK for Python. Specifically, we will use the boto3.client to create an SQS client that can connect to the SQS service provided by Localstack.
 
-2. What type of data structures should be used?
+#### 2. What type of data structures should be used?
+   
 A: Dictionaries, Lists and Tuples are used to build this application.
    * Dictionaries have been used to parsing and manupulating JSON messages.
    * Lists have been used to sort the order for database operations.
    * Tuples was used to fetches the rows from database.
    
-3. How will you mask the PII data so that duplicate values can be identified?
+#### 3. How will you mask the PII data so that duplicate values can be identified?
 A: I used a consistent hashing method to mask PII data in a way that allows for the identification of duplicate values. For this application, I used SHA-256 hash function, which ensures that the same input will always produce the same output, allowing us to identify duplicate values based on their hash values. 
+
+#### 4. What will be your strategy for connecting and writing to Postgres?
+A: To connect to and write data to Postgres, I used the psycopg2 library. The strategy involves establishing a connection to the database, preparing the data, and then executing the appropriate SQL commands to insert the data.
+
+#### 5. Where and how will your application run?
+This application will run on local machine using Docker to simulate AWS services (Localstack) and the Postgres database. Python scripts will interact with Localstack SQS queue and the database. Docker Compose will manage the setup of containers defined in docker-compose.yml.
+
+### Questions:
+#### 1. How would you deploy this application in production?
+A: To deploy this application into production, we need to follow several steps as below:
+* Containerize the application components into docker containers for consistency across environments.
+* To manage and scale containers in production we can use platforms like Kubernetes or Docker Swarm, etc.
+* We need to use cloud infrastructure for hosting databases and message queues ensuring scalability and security.
+* Setup an CI/CD pipeline for automated development, testing and deployment into production environment.
+* We need to implement security measures such as encryption, access controls and network policies to protect sensitive information.
+
+
