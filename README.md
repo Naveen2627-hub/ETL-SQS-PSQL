@@ -20,3 +20,15 @@
 7. Run python script using command: python read_sqs.py      - This script would read the data from queue and transform the data to mask PII information and load the data into Postgres table
 8. Finally, Run Python Script to retrevie the data from Postgres using command: python Select-table.py
 
+### Key Pointers:
+1. How will you read messages from the queue?
+ To read messages from the queue, I have used the boto3 library, which is the AWS SDK for Python. Specifically, we will use the boto3.client to create an SQS client that can connect to the SQS service provided by Localstack.
+
+2. What type of data structures should be used?
+   Dictionaries, Lists and Tuples are used to build this application.
+   > Dictionaries have been used to parsing and manupulating JSON messages.
+   > Lists have been used to sort the order for database operations.
+   > Tuples was used to fetches the rows from database.
+   
+3. How will you mask the PII data so that duplicate values can be identified?
+   I used a consistent hashing method to mask PII data in a way that allows for the identification of duplicate values. For this application, I used SHA-256 hash function, which ensures that the same input will always produce the same output, allowing us to identify duplicate values based on their hash values. 
